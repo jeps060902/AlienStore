@@ -17,7 +17,10 @@ return new class extends Migration
         $table->string('merk');
         $table->decimal('harga', 10, 2);
         $table->integer('stok');
+        $table->string('image')->nullable();
         $table->timestamps();
+        $table->unsignedBigInteger('subcategory_id');
+$table->foreign('subcategory_id')->references('id')->on('product_subcategories')->onDelete('cascade');
     });
 }
 

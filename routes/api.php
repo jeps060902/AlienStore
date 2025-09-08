@@ -3,14 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\modulecontroller;
-use App\Http\Controllers\admin\SecModulController;
 use App\Http\Controllers\Admin\SecRoleController;
-use App\Http\Controllers\Admin\SecRolePrivController;
 use App\Http\Controllers\Admin\SecUserController;
-use App\Http\Controllers\Admin\SecUserRoleController;
-use App\Http\Controllers\Admin\SettingSitusController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductSubcategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +28,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::apiResource('/Role', SecRoleController::class);
     Route::apiResource('/User', SecUserController::class);
     Route::apiResource('products', ProductController::class);
+Route::apiResource('categories', ProductCategoryController::class);
+Route::apiResource('subcategories', ProductSubcategoryController::class);
 });
 
 Route::post('/Register', [AuthController::class, 'Register']);
