@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('email', 254)->nullable();
             $table->string('password', 255);
-            $table->string('passport')->nullable();;
             $table->mediumInteger('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('sec_role')->onDelete('cascade');
             $table->timestamps();

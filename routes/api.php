@@ -26,16 +26,13 @@ use App\Http\Controllers\ProductDetailController;
 // });
 Route::middleware(['auth:api'])->group(function () {
 
-    Route::apiResource('/Role', SecRoleController::class);
-    Route::apiResource('/User', SecUserController::class);
+    Route::apiResource('/role', SecRoleController::class);
+    Route::apiResource('/user', SecUserController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('products-detail', ProductDetailController::class);
 Route::apiResource('categories', ProductCategoryController::class);
 Route::apiResource('subcategories', ProductSubcategoryController::class);
 });
 
-Route::post('/Register', [AuthController::class, 'Register']);
-Route::post('/Login', [AuthController::class, 'Login']);
-Route::middleware('auth:api')->get('/check-token', function () {
-    return response()->json(auth()->guard('api')->user());
-});
+Route::post('/register', [AuthController::class, 'Register']);
+Route::post('/login', [AuthController::class, 'Login']);

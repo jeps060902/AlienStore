@@ -17,7 +17,6 @@ class AuthController extends Controller
             'email' => 'required|email|unique:sec_user',
             'name' => 'required|min:4|unique:sec_user',
             'password' => 'required|min:6|confirmed',
-            'passport' => 'required|string|max:255'
         ], [
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
@@ -31,8 +30,6 @@ class AuthController extends Controller
             'password.min' => 'Password minimal 6 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
 
-            'passport.required' => 'Kolom passport wajib diisi.',
-            'passport.max' => 'Passport maksimal 255 karakter.'
         ]);
 
         if ($validator->fails()) {
