@@ -19,12 +19,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'merk' => 'required|string|max:255',
-            'harga' => 'required|numeric',
-            'stok' => 'required|integer',
-            'subcategory_id' => 'required|exists:product_subcategories,id',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+      'nama' => 'sometimes|required|string|max:255',
+            'merk' => 'sometimes|required|string|max:255',
+            'harga' => 'sometimes|required|numeric',
+            'stok' => 'sometimes|required|integer',
+            'subcategory_id' => 'sometimes|required|exists:product_subcategories,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|m    ax:2048',
+            'details' => 'array',
+            'details.*.warna' => 'required|string',
+            'details.*.ukuran' => 'required|string',
+            'details.*.bahan' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
@@ -35,13 +39,6 @@ class ProductController extends Controller
         if (!empty($validated['details'])) {
             $product->details()->createMany($validated['details']);
         }
-        $validated1 = $request->validate([
-            'warna' => 'required|string',
-            'ukuran' => 'required|string',
-            'bahan' => 'nullable|string',
-        ]);
-        $detail = ProductDetail::create($validated);
-
         return response()->json($product->load('details'), 201);
     }
 
