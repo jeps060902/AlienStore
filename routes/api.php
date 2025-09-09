@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SecUserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductSubcategoryController;
+use App\Http\Controllers\ProductDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::apiResource('/Role', SecRoleController::class);
     Route::apiResource('/User', SecUserController::class);
     Route::apiResource('products', ProductController::class);
+    Route::apiResource('products-detail', ProductDetailController::class);
 Route::apiResource('categories', ProductCategoryController::class);
 Route::apiResource('subcategories', ProductSubcategoryController::class);
 });

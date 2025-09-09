@@ -13,7 +13,7 @@ class ProductDetail extends Model
         'product_id',
         'warna',
         'ukuran',
-        'bahan'
+        'bahan',
     ];
 
     public function product()
