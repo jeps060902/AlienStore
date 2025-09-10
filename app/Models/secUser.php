@@ -17,7 +17,6 @@ class SecUser extends Authenticatable implements JWTSubject
 
     protected $fillable = [
         'name',
-        'passport',
         'password',
         'email',
         'role_id',

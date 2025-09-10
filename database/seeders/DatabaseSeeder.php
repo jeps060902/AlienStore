@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\SecModuleSeeder;
+use Database\Seeders\ProductCategorySeeder;
+use Database\Seeders\ProductSubCategorySeeder;
 use Database\Seeders\SecRolePrivSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,5 +23,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(SecRoleSeeder::class);
+        $this->call(ProSeeder::class);
+        $this->call(ProductcategorySeeder::class);
     }
 }

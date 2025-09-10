@@ -13,6 +13,7 @@ class AuthController extends Controller
 {
     public function Register(Request $request)
     {
+        // membuat validasi
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:sec_user',
             'name' => 'required|min:4|unique:sec_user',
@@ -31,18 +32,18 @@ class AuthController extends Controller
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
 
         ]);
-
+        // check apakah validasi berhasil atau tidak
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
+        // mengirim data ke database sesuai dengan request
         $user = SecUser::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role_id' => $request->role_id,
         ]);
-
+        // jika berhasil
         return response()->json([
             'message' => 'Registrasi berhasil.',
             'user' => $user
@@ -51,31 +52,32 @@ class AuthController extends Controller
 
     public function Login(Request $request)
     {
+        // validasi
         $validator = Validator::make($request->all(), [
             'email' => 'required',
             'password' => 'required'
         ]);
-
+        // check validasi
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
+        // ambil semua user dengan role(function di model) yang emailnya = email di request
         $user = SecUser::with('role')->where('email', $request->email)->first();
-
+        // check emailnya ada atau tidak
         if (!$user) {
             return response()->json([
                 'success' => false,
                 'message' => 'email tidak terdaftar'
             ], 404);
         }
-
+        // check passwordnya sama atau tidak
         if (!Hash::check($request->password, $user->password)) {
             return response()->json([
                 'success' => false,
                 'message' => 'password salah'
             ], 401);
         }
-
+        // membuat token yang mengandung email dan password
         $credentials = $request->only('email', 'password');
         $token = auth()->guard('api')->attempt($credentials);
 
@@ -85,7 +87,7 @@ class AuthController extends Controller
                 'message' => 'gagal login'
             ], 401);
         }
-
+        //respon jsonnya
         return response()->json([
             'success' => true,
             'message' => 'berhasil login',
