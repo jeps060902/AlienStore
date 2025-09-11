@@ -26,12 +26,20 @@ use App\Http\Controllers\ProductDetailController;
 // });
 Route::middleware(['auth:api'])->group(function () {
 
-    Route::apiResource('/role', SecRoleController::class);
-    Route::apiResource('/user', SecUserController::class);
-    Route::apiResource('products', ProductController::class);
-    Route::apiResource('products-detail', ProductDetailController::class);
-Route::apiResource('categories', ProductCategoryController::class);
-Route::apiResource('subcategories', ProductSubcategoryController::class);
+    // hanya Admin yang boleh admin
+    Route::apiResource('/role', SecRoleController::class)->middleware('role:Admin');
+    Route::apiResource('/user', SecUserController::class)->middleware('role:Admin');
+
+    // hanya Admin yang boleh kelola produk
+    Route::apiResource('products', ProductController::class)->middleware('role:Admin');
+    Route::apiResource('products-detail', ProductDetailController::class)->middleware('role:Admin');
+    // kategori & subkategori juga bisa dibatasi
+    Route::apiResource('categories', ProductCategoryController::class)->middleware('role:Admin');
+    Route::apiResource('subcategories', ProductSubcategoryController::class)->middleware('role:Admin');
+    // hanya user
+    Route::get('/user-login-products', [ProductController::class,'index'])->middleware('role:User');
+    Route::get('/user-login-categories', [ProductCategoryController::class,'index'])->middleware('role:User');
+    Route::get('/user-login-subcategories', [ProductSubcategoryController::class,'index'])->middleware('role:User');
 });
 Route::get('/user-products', [ProductController::class,'index']);
 Route::get('/user-categories', [ProductCategoryController::class,'index']);

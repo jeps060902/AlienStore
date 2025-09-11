@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedMediumInteger('user_id');
             $table->timestamps();
-
             $table->foreign('user_id')
                 ->references('id')->on('sec_user')
                 ->onDelete('cascade');

@@ -67,4 +67,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check.permission' => \App\Http\Middleware\CheckModulePermission::class,
     ];
+    protected $routeMiddleware = [
+        // middleware bawaan...
+        'role' => \App\Http\Middleware\CheckRole::class,
+    ];
 }
