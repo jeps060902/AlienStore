@@ -33,6 +33,8 @@ Route::middleware(['auth:api'])->group(function () {
 Route::apiResource('categories', ProductCategoryController::class);
 Route::apiResource('subcategories', ProductSubcategoryController::class);
 });
-
+Route::get('/user-products', [ProductController::class,'index']);
+Route::get('/user-categories', [ProductCategoryController::class,'index']);
+Route::get('/user-subcategories', [ProductSubcategoryController::class,'index']);
 Route::post('/register', [AuthController::class, 'Register']);
 Route::post('/login', [AuthController::class, 'Login']);
